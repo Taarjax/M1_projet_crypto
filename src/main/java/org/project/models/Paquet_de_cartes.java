@@ -29,6 +29,10 @@ public class Paquet_de_cartes {
         paquet_de_carte.add(new Carte(null, null, Jokers.JOKER_ROUGE));
     }
 
+    public void ajouter_carte(Carte c){
+        paquet_de_carte.add(c);
+    }
+
     /**
      * Méthode de mélange du paquet
      */
@@ -77,14 +81,30 @@ public class Paquet_de_cartes {
     }
 
     /**
-     * Méthode pour savoir si la carte est le joker noir
-     * @param index index de la carte
-     * @return true si oui, false sinon
+     * Méthode pour avoir la position du joker rouge dans le paquet
+     * @return la position du joker rouge
      */
-//    public boolean estJokerNoir(int index) {
-//        Carte carte = this.getCarte(index);
-//        return carte.getJoker() == Jokers.JOKER_NOIR;
-//    }
+    public int getIndexJokerRouge(){
+        for(int i=0; i < this.getSize() ;i++ ){
+            if(this.getCarte(i).estJokerRouge()){
+                return i ;
+            }
+        }
+        return -1;
+    }
+
+    /**
+     * Méthode pour avoir la position du joker noir dans le paquet
+     * @return la position du joker noir
+     */
+    public int getIndexJokerNoir(){
+        for(int i=0; i < this.getSize() ;i++ ){
+            if(this.getCarte(i).estJokerNoir()){
+                return i ;
+            }
+        }
+        return -1;
+    }
 
 
 
