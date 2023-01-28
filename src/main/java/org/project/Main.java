@@ -1,6 +1,7 @@
 package org.project;
 
 import org.project.enumeration.Couleurs;
+import org.project.enumeration.Jokers;
 import org.project.enumeration.Valeurs;
 import org.project.models.Carte;
 import org.project.models.Paquet_de_cartes;
@@ -17,11 +18,20 @@ public class Main {
         //Affiche les cartes du paquet
         System.out.println("Taille du paquet : " + paquet.getSize());
         System.out.println("--------------------------------");
-
-        paquet.melanger();
+//
+//        paquet.melanger();
+//        System.out.println(paquet);
+//
+//        solitaire.double_coupe();
         System.out.println(paquet);
 
-        solitaire.double_coupe();
+        Carte six_de_pique = new Carte(Couleurs.PIQUE, Valeurs.ROI, null);
+        System.out.println(six_de_pique.getValeurSelonOrdreBridge());
+        Carte joker_noir = new Carte(null, null, Jokers.JOKER_NOIR);
+        System.out.println(joker_noir.getValeurSelonOrdreBridge());
+
+
+
 
 
 

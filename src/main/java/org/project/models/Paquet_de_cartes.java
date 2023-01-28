@@ -29,8 +29,25 @@ public class Paquet_de_cartes {
         paquet_de_carte.add(new Carte(null, null, Jokers.JOKER_ROUGE));
     }
 
-    public void ajouter_carte(Carte c){
-        paquet_de_carte.add(c);
+    /**
+     * Méthode pour ajouter une carte au paquet
+     * @param _carte la carte a ajouter
+     */
+    public void ajouter_carte(Carte _carte){
+        paquet_de_carte.add(_carte);
+    }
+
+    public void ajouterPaquet(Paquet_de_cartes _paquet){
+        for(Carte carte: _paquet.getPaquet_de_carte()){
+            this.paquet_de_carte.add(carte);
+        }
+    }
+
+    /**
+     * Méthode pour vider le paquet de carte
+     */
+    public void vider(){
+        this.paquet_de_carte.clear();
     }
 
     /**
@@ -43,6 +60,10 @@ public class Paquet_de_cartes {
         }
     }
 
+    /**
+     * Méthode poura voir les informations du paquet de carte sous forme de chaine de caractères
+     * @return la chaine de caractères
+     */
     public String toString(){
         String str = "";
         for (Carte carte : paquet_de_carte) {
@@ -106,6 +127,74 @@ public class Paquet_de_cartes {
         return -1;
     }
 
+
+
+    /**
+     * Méthode pour avoir la position du premier joker dans le paquet
+     * @return la position du premier joker
+     */
+    public int getIndexPremierJoker(){
+        return getIndexJokerNoir() < getIndexJokerRouge() ? getIndexJokerNoir() : getIndexJokerRouge();
+    }
+
+    /**
+     * Méthode pour avoir la position du deuxième joker dans le paquet
+     * @return la position du deuxième joker
+     */
+    public int getIndexSecondJoker(){
+        return getIndexJokerNoir() > getIndexJokerRouge() ? getIndexJokerNoir() : getIndexJokerRouge();
+    }
+
+    /**
+     * Méthode qui retourne le paquet au dessus du premier joker
+     * @return le paquet au dessus du premier joker
+     */
+    public Paquet_de_cartes getPaquetAuDessusPremierJoker(){
+        Paquet_de_cartes paquetAuDessusPremierJoker = new Paquet_de_cartes();
+        for(int i = 0; i < this.getIndexPremierJoker() ; i++){
+            paquetAuDessusPremierJoker.ajouter_carte(this.getCarte(i));
+        }
+        return paquetAuDessusPremierJoker;
+    }
+
+    /**
+     * Méthode qui retourne le paquet en dessous du second joker
+     * @return le paquet en dessous du second joker
+     */
+    public Paquet_de_cartes getPaquetEnDessousSecondJoker(){
+        Paquet_de_cartes paquetEnDessousSecondJoker = new Paquet_de_cartes();
+        for(int i = this.getIndexSecondJoker() + 1 ; i < this.getSize(); i++){
+            paquetEnDessousSecondJoker.ajouter_carte(this.getCarte(i));
+        }
+        return paquetEnDessousSecondJoker;
+    }
+
+    /**
+     * Méthode qui retourne le paquet entre les deux jokers
+     * @return le paquet entre les deux jokers
+     */
+    public Paquet_de_cartes getPaquetEntreJokers(){
+        Paquet_de_cartes paquetEntreJokers = new Paquet_de_cartes();
+        for(int i = getIndexPremierJoker() ; i <= getIndexSecondJoker() ; i++){
+            paquetEntreJokers.ajouter_carte(this.getCarte(i));
+        }
+        return paquetEntreJokers;
+    }
+
+    /**
+     * Surcharge de la méthode equals pour comparer non pas la réference mais la valeur de l'objet
+     * @param o l'objet a comparer
+     * @return true si la valeur des deux objets sont égaux, false sinon
+     */
+    @Override
+    public boolean equals(Object o) {
+        if(o == this)
+            return true;
+        if(!(o instanceof Paquet_de_cartes))
+            return false;
+        Paquet_de_cartes paquet = (Paquet_de_cartes) o;
+        return paquet_de_carte.equals(paquet.paquet_de_carte);
+    }
 
 
 }

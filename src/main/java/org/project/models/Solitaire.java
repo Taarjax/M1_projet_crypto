@@ -58,27 +58,27 @@ public class Solitaire {
     }
 
 
+    /**
+     * Méthode intervertissant le paquet situé au dessus du premier joker avec le paquet
+     * situé en dessous du second joker
+     */
     public void double_coupe() {
-        int positionJokerNoir = paquet.getIndexJokerNoir();
-        int positionJokerRouge = paquet.getIndexJokerRouge();
-        int positionPremierJoker = positionJokerNoir < positionJokerRouge ? positionJokerNoir : positionJokerRouge;
-        int positionSecondJoker = positionJokerNoir > positionJokerRouge ? positionJokerNoir : positionJokerRouge;
-        Paquet_de_cartes paquet_au_dessus_premier_joker = new Paquet_de_cartes();
-        Paquet_de_cartes paquet_en_dessous_second_joker = new Paquet_de_cartes();
+        //On récupère les paquets avant, entre et au dessus des jokers
+        Paquet_de_cartes paquet_au_dessus_premier_joker = this.paquet.getPaquetAuDessusPremierJoker();
+        Paquet_de_cartes paquetEntreJokers = this.paquet.getPaquetEntreJokers();
+        Paquet_de_cartes paquet_en_dessous_second_joker = this.paquet.getPaquetEnDessousSecondJoker();
 
-        // On remplie le sous paquet de cartes au-dessus du premier joker
-        for(int i = 0; i < positionPremierJoker ; i++){
-            paquet_au_dessus_premier_joker.ajouter_carte(paquet.getCarte(i));
-        }
+        //On vide le paquet
+        this.paquet.vider();
 
-        //On remplie le sous paquet de carte en-dessous du second joker
-        for(int i = positionSecondJoker +1 ; i < paquet.getSize(); i++){
-            paquet_en_dessous_second_joker.ajouter_carte(paquet.getCarte(i));
-        }
-
-//        System.out.println("paquet au dessus" +paquet_au_dessus_premier_joker);
-//        System.out.println("paquet en dessous" + paquet_en_dessous_second_joker);
-
+        //On le remplie avec le nouvel ordre
+        paquet.ajouterPaquet(paquet_en_dessous_second_joker);
+        paquet.ajouterPaquet(paquetEntreJokers);
+        paquet.ajouterPaquet(paquet_au_dessus_premier_joker);
     }
 
+    /**
+     * Méthode qui permute la carte en haut du paquet avec la carte située à la position
+     * indiquée par la valeur de la carte en haut du paquet
+     */
 }

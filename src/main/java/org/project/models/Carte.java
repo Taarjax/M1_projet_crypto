@@ -62,6 +62,35 @@ public class Carte {
         return this.valeur.ordinal() + 1;
     }
 
+    public int getValeurSelonOrdreBridge() {
+        int valeur;
+        if(this.joker == null) {
+            valeur = 0;
+            switch (this.couleur) {
+                case TREFLE:
+                    valeur = this.valeur.ordinal() + 0;
+                    break;
+                case CARREAU:
+                    valeur = this.valeur.ordinal() + 13;
+                    break;
+                case COEUR:
+                    valeur = this.valeur.ordinal() + 26;
+                    break;
+                case PIQUE:
+                    valeur = this.valeur.ordinal() + 39;
+                    break;
+            }
+        }else {
+            if(this.joker == Jokers.JOKER_NOIR) {
+                valeur = 52;
+            }else {
+                //Joker rouge
+                valeur = 53;
+            }
+        }
+        return valeur;
+    }
+
     public boolean estJokerNoir(){
         return this.joker == Jokers.JOKER_NOIR;
     }
