@@ -19,18 +19,20 @@ public class Main {
         System.out.println("Taille du paquet : " + paquet.getSize());
         System.out.println("--------------------------------");
 //
-//        paquet.melanger();
+        paquet.melanger();
 //        System.out.println(paquet);
 //
 //        solitaire.double_coupe();
-        System.out.println(paquet);
+//        System.out.println(paquet);
+//        solitaire.coupe_simple();
+//
+//        System.out.println(paquet);
+//
+//        System.out.println(paquet.getDerniereCarte().getValeurSelonOrdreBridge());
 
-        Carte six_de_pique = new Carte(Couleurs.PIQUE, Valeurs.ROI, null);
-        System.out.println(six_de_pique.getValeurSelonOrdreBridge());
-        Carte joker_noir = new Carte(null, null, Jokers.JOKER_NOIR);
-        System.out.println(joker_noir.getValeurSelonOrdreBridge());
 
-
+        //String msg_a_crytpé = "Bonjour";
+        //String msg_crypté = solitaire.crypter(msg_a_crytpé);
 
 
 

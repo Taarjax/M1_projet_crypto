@@ -5,6 +5,7 @@ import java.util.Collections;
 
 public class Solitaire {
     private Paquet_de_cartes paquet;
+    private String flux_de_clef;
 
     public Solitaire(Paquet_de_cartes _paquet) {
         this.paquet = _paquet;
@@ -77,8 +78,41 @@ public class Solitaire {
         paquet.ajouterPaquet(paquet_au_dessus_premier_joker);
     }
 
+
     /**
-     * Méthode qui permute la carte en haut du paquet avec la carte située à la position
-     * indiquée par la valeur de la carte en haut du paquet
+     * Méthode qui coupe le paquet en deux paquets
+     * On prend les n première carte du paquet, avec n étant la valeur suivant l'ordre du bridge de la dernière carte
+     * On met ces n cartes en dessous du paquet à l'exclusion de la dernière carte que nous gardons à la même place
      */
+    public void coupe_simple() {
+        Carte derniereCarte = this.paquet.getDerniereCarte();
+        int valeurBridgeDerniereCarte = derniereCarte.getValeurSelonOrdreBridge();
+        Paquet_de_cartes paquetNCartes = new Paquet_de_cartes();
+        Paquet_de_cartes paquetRestant = new Paquet_de_cartes();
+
+        //On récupère les n cartes, avec n = valeurBridgeDerniereCarte
+        for (int i = 0; i <= valeurBridgeDerniereCarte; i++) {
+            paquetNCartes.ajouter_carte(this.paquet.getPaquet_de_carte().get(i));
+        }
+
+        //On récupère le reste du paquet
+        // -1 pour ne pas prendre la derniere carte
+        for (int i = valeurBridgeDerniereCarte + 1; i < this.paquet.getSize() - 1; i++) {
+            paquetRestant.ajouter_carte(this.paquet.getPaquet_de_carte().get(i));
+        }
+
+        //On vide le paquet
+        this.paquet.vider();
+
+        //On le remplie avec le nouvel ordre
+        this.paquet.ajouterPaquet(paquetRestant);
+        this.paquet.ajouterPaquet(paquetNCartes);
+        this.paquet.ajouter_carte(derniereCarte);
+    }
+
+
+    public void crypter_lettre() {
+    }
+
 }
+

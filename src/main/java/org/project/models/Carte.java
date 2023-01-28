@@ -13,9 +13,9 @@ public class Carte {
     private Jokers joker;
 
     /**
-     * Constrcteur de la classe
+     * Constructeur de la classe
      * @param _couleur couleur de la classe
-     * @param _valeur valeur de la carte ( Roi de trèfle, As de pique, ...) suivant l'ordre du bridge
+     * @param _valeur valeur de la carte (Roi de trèfle, As de pique, ...) suivant l'ordre du bridge
      */
     public Carte(Couleurs _couleur, Valeurs _valeur, Jokers _joker){
         this.couleur = _couleur;
@@ -26,7 +26,7 @@ public class Carte {
 
     @Override
     public String toString(){
-        String str = "";
+        String str;
         // Si ce n'est pas un joker
         if(this.couleur != null && this.valeur != null){
              str = valeur + " de " + couleur;
@@ -63,7 +63,7 @@ public class Carte {
     }
 
     public int getValeurSelonOrdreBridge() {
-        int valeur;
+        int valeur = 0;
         if(this.joker == null) {
             valeur = 0;
             switch (this.couleur) {
@@ -81,14 +81,33 @@ public class Carte {
                     break;
             }
         }else {
-            if(this.joker == Jokers.JOKER_NOIR) {
+            if(this.joker == Jokers.JOKER_NOIR || this.joker == Jokers.JOKER_ROUGE) {
                 valeur = 52;
-            }else {
-                //Joker rouge
-                valeur = 53;
             }
         }
         return valeur;
+    }
+
+    public Carte getValeurSelonOrdreBridge(int _valeur) {
+        Carte carte = null;
+        if(_valeur < 52) {
+            if(_valeur < 13) {
+                carte = new Carte(Couleurs.TREFLE, Valeurs.values()[_valeur], null);
+            }else if(_valeur < 26) {
+                carte = new Carte(Couleurs.CARREAU, Valeurs.values()[_valeur - 13], null);
+            }else if(_valeur < 39) {
+                carte = new Carte(Couleurs.COEUR, Valeurs.values()[_valeur - 26], null);
+            }else if(_valeur < 52) {
+                carte = new Carte(Couleurs.PIQUE, Valeurs.values()[_valeur - 39], null);
+            }
+        }else {
+            if(_valeur == 52) {
+                carte = new Carte(null, null, Jokers.JOKER_NOIR);
+            }else if(_valeur == 53) {
+                carte = new Carte(null, null, Jokers.JOKER_ROUGE);
+            }
+        }
+        return carte;
     }
 
     public boolean estJokerNoir(){
@@ -98,5 +117,6 @@ public class Carte {
     public boolean estJokerRouge(){
         return this.joker == Jokers.JOKER_ROUGE;
     }
+
 
 }

@@ -30,7 +30,7 @@ class SolitaireTest {
         // On créer un paquet avec uniquement les carte de trèfle et les 2 jokers
         for (Couleurs couleur : Couleurs.values()) {
             for (Valeurs valeur : Valeurs.values()) {
-                if (couleur == Couleurs.TREFFLE) {
+                if (couleur == Couleurs.TREFLE) {
                     paquet.ajouter_carte(new Carte(couleur, valeur, null));
                 }
             }
@@ -97,6 +97,39 @@ class SolitaireTest {
         //Et que le paquet en dessous du second joker avant la coupe est égal au paquet au dessus du premier joker après la coupe
         assertEquals(paquetAuDessusPremierJokerAvantCoupe, paquetEnDessousSecondJokerApresCoupe );
         assertEquals(paquetEnDessousDeuxiemeJokerAvantCoupe, paquetAuDessusPremierJokerApresCoupe);
+    }
+
+    @Test
+    void test_coupe_simple(){
+        paquet.melanger();
+
+        Carte derniereCarte = paquet.getDerniereCarte();
+        int valeurBridgeDerniereCarte = derniereCarte.getValeurSelonOrdreBridge();
+
+        Paquet_de_cartes paquetNCartes = new Paquet_de_cartes();
+        Paquet_de_cartes paquetRestant = new Paquet_de_cartes();
+
+        solitaire.coupe_simple();
+
+        //On récupère les n cartes, avec n = valeurBridgeDerniereCarte
+        for (int i = 0; i <= valeurBridgeDerniereCarte; i++) {
+            paquetNCartes.ajouter_carte(paquet.getPaquet_de_carte().get(i));
+        }
+
+        //On récupère le reste du paquet
+        // -1 pour ne pas prendre la derniere carte
+        for (int i = valeurBridgeDerniereCarte + 1; i < paquet.getSize() - 1 ; i++) {
+            paquetRestant.ajouter_carte(paquet.getPaquet_de_carte().get(i));
+        }
+
+        System.out.println(paquet);
+        //On vérifie que le paquet n cartes est égal au n premieres cartes du paquet
+        assertEquals(paquetNCartes.getPaquet_de_carte(), paquet.getPaquet_de_carte().subList(0, valeurBridgeDerniereCarte + 1));
+        //On vérifie que paquetRestant est égal au reste du paquet
+        assertEquals(paquetRestant.getPaquet_de_carte(), paquet.getPaquet_de_carte().subList(valeurBridgeDerniereCarte + 1, paquet.getSize() - 1));
+        //On vérifie que la derniere carte du paquet est égale à la derniere carte du paquet avant la coupe
+        assertEquals(derniereCarte, paquet.getPaquet_de_carte().get(paquet.getSize() - 1));
+
     }
 
 

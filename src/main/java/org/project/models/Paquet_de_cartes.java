@@ -127,7 +127,13 @@ public class Paquet_de_cartes {
         return -1;
     }
 
-
+    /**
+     * Méthode pour avoir la dernière carte du paquet
+     * @return la dernière carte du paquet
+     */
+    public Carte getDerniereCarte(){
+        return this.getCarte(this.getSize()-1);
+    }
 
     /**
      * Méthode pour avoir la position du premier joker dans le paquet
