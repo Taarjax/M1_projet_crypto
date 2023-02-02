@@ -3,6 +3,9 @@ package org.project.models;
 import java.util.ArrayList;
 import java.util.Collections;
 
+/**
+ * Classe qui représente le chiffrement solitaire
+ */
 public class Solitaire {
     private Paquet_de_cartes paquet;
     private String clef_de_cryptage = "";

@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
+/**
+ * Classe qui représente un paquet de carte
+ */
 public class Paquet_de_cartes {
     private ArrayList<Carte> paquet_de_carte;
 
@@ -37,9 +40,10 @@ public class Paquet_de_cartes {
         paquet_de_carte.add(_carte);
     }
 
+
     /**
-     *
-     * @param _paquet
+     * Méthode pour ajouter un paquet de carte au paquet de carte
+     * @param _paquet le paquet de carte a ajouter
      */
     public void ajouterPaquet(Paquet_de_cartes _paquet){
         for(Carte carte: _paquet.getPaquet_de_carte()){
@@ -77,12 +81,13 @@ public class Paquet_de_cartes {
     }
 
     /** GET AND SETTER */
+
+    /**
+     * Méthode pour obtenir le paquet de carte
+     * @return le paquet de carte
+     */
     public ArrayList<Carte> getPaquet_de_carte(){
         return this.paquet_de_carte;
-    }
-
-    public void setPaquet_de_carte(ArrayList<Carte> _paquet){
-        this.paquet_de_carte = _paquet;
     }
 
     /**

@@ -5,7 +5,7 @@ import org.project.enumeration.Jokers;
 import org.project.enumeration.Valeurs;
 
 /**
- * Classe représentant une carte du paquet
+ * Classe qui représente une carte
  */
 public class Carte {
     private Couleurs couleur;
@@ -23,7 +23,10 @@ public class Carte {
         this.joker = _joker;
     }
 
-
+    /**
+     * Méthode qui renvoie la couleur de la carte
+     * @return la couleur de la carte
+     */
     @Override
     public String toString(){
         String str;
@@ -40,28 +43,17 @@ public class Carte {
     /**
      * GETTER AND SETTER
      */
-    public Couleurs getCouleur(){
-        return this.couleur;
-    }
 
-    public void setCouleur(Couleurs _couleur){
-        this.couleur = _couleur;
-    }
-
-    public Valeurs getValeur(){
-        return this.valeur;
-    }
-
-    public void setValeur(Valeurs _valeur){
-        this.valeur = _valeur;
-    }
-
+    /**
+     * Renvoie la couleur de la carte
+     * @return la couleur de la carte
+     */
     public Jokers getJoker(){return this.joker;}
 
-    public int getValeurNumerique() {
-        return this.valeur.ordinal() + 1;
-    }
-
+    /**
+     * Renvoie la valeur de la carte selon l'ordre du bridge
+     * @return la valeur de la carte selon l'ordre du bridge
+     */
     public int getValeurSelonOrdreBridge() {
         int valeur = 0;
         if(this.joker == null) {
@@ -88,32 +80,18 @@ public class Carte {
         return valeur;
     }
 
-    public Carte getValeurSelonOrdreBridge(int _valeur) {
-        Carte carte = null;
-        if(_valeur < 52) {
-            if(_valeur < 13) {
-                carte = new Carte(Couleurs.TREFLE, Valeurs.values()[_valeur], null);
-            }else if(_valeur < 26) {
-                carte = new Carte(Couleurs.CARREAU, Valeurs.values()[_valeur - 13], null);
-            }else if(_valeur < 39) {
-                carte = new Carte(Couleurs.COEUR, Valeurs.values()[_valeur - 26], null);
-            }else if(_valeur < 52) {
-                carte = new Carte(Couleurs.PIQUE, Valeurs.values()[_valeur - 39], null);
-            }
-        }else {
-            if(_valeur == 52) {
-                carte = new Carte(null, null, Jokers.JOKER_NOIR);
-            }else if(_valeur == 53) {
-                carte = new Carte(null, null, Jokers.JOKER_ROUGE);
-            }
-        }
-        return carte;
-    }
-
+    /**
+     * Vérifie si la carte est un joker noir
+     * @return true si c'est un joker noir, false sinon
+     */
     public boolean estJokerNoir(){
         return this.joker == Jokers.JOKER_NOIR;
     }
 
+    /**
+     * Vérifie si la carte est un joker rouge
+     * @return true si c'est un joker rouge, false sinon
+     */
     public boolean estJokerRouge(){
         return this.joker == Jokers.JOKER_ROUGE;
     }

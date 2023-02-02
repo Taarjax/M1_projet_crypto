@@ -40,6 +40,9 @@ class SolitaireTest {
     }
 
 
+    /**
+     * Test de la méthode de déplacement du joker noir
+     */
     @Test
     void test_recul_joker_noir() {
         //On test le cas lorsque le joker noir n'est pas en dernière position
@@ -52,6 +55,9 @@ class SolitaireTest {
         assertEquals(Jokers.JOKER_NOIR, paquet.getCarte(1).getJoker());
     }
 
+    /**
+     * Méthode de test pour la méthode de déplacement du joker rouge
+     */
     @Test
     void test_recul_joker_rouge() {
         // On vérifie que le joker rouge est bien à la dernière position avant de déplacer
@@ -99,6 +105,9 @@ class SolitaireTest {
         assertEquals(paquetEnDessousDeuxiemeJokerAvantCoupe, paquetAuDessusPremierJokerApresCoupe);
     }
 
+    /**
+     * Méthode de test pour la méthode coupe_simple
+     */
     @Test
     void test_coupe_simple(){
         paquet.melanger();
@@ -129,9 +138,6 @@ class SolitaireTest {
         assertEquals(paquetRestant.getPaquet_de_carte(), paquet.getPaquet_de_carte().subList(valeurBridgeDerniereCarte + 1, paquet.getSize() - 1));
         //On vérifie que la derniere carte du paquet est égale à la derniere carte du paquet avant la coupe
         assertEquals(derniereCarte, paquet.getPaquet_de_carte().get(paquet.getSize() - 1));
-
     }
-
-
 
 }
