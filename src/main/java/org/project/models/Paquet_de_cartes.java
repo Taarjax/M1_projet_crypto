@@ -37,6 +37,10 @@ public class Paquet_de_cartes {
         paquet_de_carte.add(_carte);
     }
 
+    /**
+     *
+     * @param _paquet
+     */
     public void ajouterPaquet(Paquet_de_cartes _paquet){
         for(Carte carte: _paquet.getPaquet_de_carte()){
             this.paquet_de_carte.add(carte);
@@ -136,6 +140,14 @@ public class Paquet_de_cartes {
     }
 
     /**
+     * Méthode pour avoir la première carte du paquet
+     * @return la première carte du paquet
+     */
+    public Carte getPremiereCarte(){
+        return this.getCarte(0);
+    };
+
+    /**
      * Méthode pour avoir la position du premier joker dans le paquet
      * @return la position du premier joker
      */
@@ -185,6 +197,31 @@ public class Paquet_de_cartes {
             paquetEntreJokers.ajouter_carte(this.getCarte(i));
         }
         return paquetEntreJokers;
+    }
+
+    /**
+     * Méthode qui retourne la lettre de l'alphabet correspondant à la valeur de la carte passé en paramètre
+     * avec _valeurBridge = 1 on obtient a, _valeurBridge = 2 on obtient b, etc... jusqu'a _valeurBridge = 26 on
+     * obtient z
+     */
+    public char convertBridgeToLetter(int _valeurBridge) throws Exception{
+        if(_valeurBridge < 1 || _valeurBridge > 26)
+            throw new Exception("La valeur de la carte doit être comprise entre 1 et 26");
+        else
+            return (char) (_valeurBridge + 96 );
+    }
+
+    /**
+     * Méthode qui retourne la valeur de la carte correspondant à la lettre de l'alphabet passé en paramètre
+     * @param letter la lettre de l'alphabet
+     * @return la valeur de la carte
+     * @throws Exception si la lettre n'est pas comprise entre a et z
+     */
+    public int convertLetterToBridge(char letter) throws Exception{
+        if(letter < 'a' || letter > 'z')
+            throw new Exception("La lettre doit être comprise entre a et z");
+        else
+            return (int) letter - 96;
     }
 
     /**

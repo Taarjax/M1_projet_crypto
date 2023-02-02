@@ -68,21 +68,21 @@ public class Carte {
             valeur = 0;
             switch (this.couleur) {
                 case TREFLE:
-                    valeur = this.valeur.ordinal() + 0;
+                    valeur = this.valeur.ordinal() + 1;
                     break;
                 case CARREAU:
-                    valeur = this.valeur.ordinal() + 13;
+                    valeur = this.valeur.ordinal() + 14;
                     break;
                 case COEUR:
-                    valeur = this.valeur.ordinal() + 26;
+                    valeur = this.valeur.ordinal() + 27;
                     break;
                 case PIQUE:
-                    valeur = this.valeur.ordinal() + 39;
+                    valeur = this.valeur.ordinal() + 40;
                     break;
             }
         }else {
             if(this.joker == Jokers.JOKER_NOIR || this.joker == Jokers.JOKER_ROUGE) {
-                valeur = 52;
+                valeur = 53;
             }
         }
         return valeur;

@@ -5,7 +5,7 @@ import java.util.Collections;
 
 public class Solitaire {
     private Paquet_de_cartes paquet;
-    private String flux_de_clef;
+    private String clef_de_cryptage = "";
 
     public Solitaire(Paquet_de_cartes _paquet) {
         this.paquet = _paquet;
@@ -91,13 +91,13 @@ public class Solitaire {
         Paquet_de_cartes paquetRestant = new Paquet_de_cartes();
 
         //On récupère les n cartes, avec n = valeurBridgeDerniereCarte
-        for (int i = 0; i <= valeurBridgeDerniereCarte; i++) {
+        for (int i = 0; i < valeurBridgeDerniereCarte; i++) {
             paquetNCartes.ajouter_carte(this.paquet.getPaquet_de_carte().get(i));
         }
 
         //On récupère le reste du paquet
         // -1 pour ne pas prendre la derniere carte
-        for (int i = valeurBridgeDerniereCarte + 1; i < this.paquet.getSize() - 1; i++) {
+        for (int i = valeurBridgeDerniereCarte ; i < this.paquet.getSize() - 1; i++) {
             paquetRestant.ajouter_carte(this.paquet.getPaquet_de_carte().get(i));
         }
 
@@ -110,8 +110,81 @@ public class Solitaire {
         this.paquet.ajouter_carte(derniereCarte);
     }
 
+    /**
+     * Méthode pour crypter une lettre
+     */
+    public char lecture_lettre() throws Exception {
+        Carte premiereCarte = this.paquet.getPremiereCarte();
+        int valeurBridgePremiereCarte = premiereCarte.getValeurSelonOrdreBridge();
 
-    public void crypter_lettre() {
+        Carte carteM = this.paquet.getPaquet_de_carte().get(valeurBridgePremiereCarte);
+        int valeurBridgeCarteM = carteM.getValeurSelonOrdreBridge();
+
+        if (valeurBridgeCarteM == 53) {
+            this.recul_joker_noir();
+            this.recul_joker_rouge();
+            this.double_coupe();
+            this.coupe_simple();
+            return this.lecture_lettre();
+        }else{
+            if (valeurBridgeCarteM > 26) {
+                valeurBridgeCarteM = valeurBridgeCarteM - 26;
+            }
+        }
+
+        return paquet.convertBridgeToLetter(valeurBridgeCarteM);
+    }
+
+    /**
+     * Méthode pour génerer la clef de cryptage
+     */
+    public String generer_clef(int tailleMessage) throws Exception {;
+        String clef = "";
+
+        //Pour chaque lettre du message, on fait le mélange pseudo aléatoire et on récupère la lettre correspondante
+        for (int i = 0; i < tailleMessage; i++) {
+            this.recul_joker_noir(); // good
+            this.recul_joker_rouge(); // good
+            this.double_coupe(); //good
+            this.coupe_simple(); // good
+            clef += this.lecture_lettre();
+        }
+        this.clef_de_cryptage = clef;
+        System.out.println("Clef de cryptage: " + this.clef_de_cryptage);
+        return this.clef_de_cryptage;
+    }
+
+    /**
+     * Méthode pour crypter un message
+     */
+    public String crypter(String message) throws Exception {
+        System.out.println("Message à crypter: " + message);
+        String clef = this.generer_clef(message.length());
+        String messageCrypte = "";
+
+        for (int i = 0; i < message.length(); i++) {
+            int valeurLettreMessage = this.paquet.convertLetterToBridge(message.charAt(i));
+            int valeurLettreClef = this.paquet.convertLetterToBridge(clef.charAt(i));
+            int valeurLettreCrypte = (valeurLettreMessage + valeurLettreClef) > 26 ? (valeurLettreMessage + valeurLettreClef) - 26 : (valeurLettreMessage + valeurLettreClef);
+            messageCrypte += this.paquet.convertBridgeToLetter(valeurLettreCrypte);
+        }
+        return messageCrypte;
+    }
+
+    /**
+     * Méthode pour décrypter un message
+     */
+    public String decrypter(String message) throws Exception {
+        String clef = this.clef_de_cryptage;
+        String messageDecrypte = "";
+
+        for (int i = 0; i < message.length(); i++) {
+            int valeurLettreMessage = this.paquet.convertLetterToBridge(message.charAt(i));
+            int valeurLettreClef = this.paquet.convertLetterToBridge(clef.charAt(i));
+            int valeurLettreDecrypte = (valeurLettreMessage - valeurLettreClef) < 1 ? (valeurLettreMessage - valeurLettreClef) + 26 : (valeurLettreMessage - valeurLettreClef);
+            messageDecrypte += this.paquet.convertBridgeToLetter(valeurLettreDecrypte);
+        }
+        return messageDecrypte;
     }
 
 }
