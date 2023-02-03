@@ -3,13 +3,10 @@ package org.project.models;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.project.controllers.Solitaire;
 import org.project.enumeration.Couleurs;
 import org.project.enumeration.Jokers;
 import org.project.enumeration.Valeurs;
-
-import javax.swing.plaf.synth.SynthOptionPaneUI;
-
-import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -139,5 +136,7 @@ class SolitaireTest {
         //On vérifie que la derniere carte du paquet est égale à la derniere carte du paquet avant la coupe
         assertEquals(derniereCarte, paquet.getPaquet_de_carte().get(paquet.getSize() - 1));
     }
+
+
 
 }

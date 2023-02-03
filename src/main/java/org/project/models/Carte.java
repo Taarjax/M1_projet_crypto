@@ -96,5 +96,15 @@ public class Carte {
         return this.joker == Jokers.JOKER_ROUGE;
     }
 
+    public Valeurs getValeur() {
+        return valeur;
+    }
+
+    public Couleurs getCouleur() {
+        return couleur;
+    }
+
+
+
 
 }

@@ -1,4 +1,7 @@
-package org.project.models;
+package org.project.controllers;
+
+import org.project.models.Carte;
+import org.project.models.Paquet_de_cartes;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -162,6 +165,10 @@ public class Solitaire {
      */
     public String crypter(String message) throws Exception {
         System.out.println("Message à crypter: " + message);
+
+        message = message.toLowerCase();
+        message = message.replaceAll("[\\sàâäéèêëîïôöùûü]", "");
+
         String clef = this.generer_clef(message.length());
         String messageCrypte = "";
 
