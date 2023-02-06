@@ -12,7 +12,7 @@ public class Main {
 
         System.out.println(paquet.getPaquet_de_carte().get(0).getValeur() + "_" + paquet.getPaquet_de_carte().get(0).getCouleur());
 
-        mainView mainView = new mainView(solitaire, paquet);
+        mainView mainView = new mainView(paquet);
         mainView.pack();
         mainView.setVisible(true);
     }
