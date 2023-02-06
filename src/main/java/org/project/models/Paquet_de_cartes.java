@@ -61,11 +61,14 @@ public class Paquet_de_cartes {
     /**
      * Méthode de mélange du paquet
      */
-    public void melanger(){
+    public Paquet_de_cartes melanger(){
+        Paquet_de_cartes paquetMelange = new Paquet_de_cartes();
         Random random = new Random();
-        for (int i = 0 ; i < paquet_de_carte.size(); i++){
+        for (int i = 0 ; i < this.paquet_de_carte.size(); i++){
             Collections.swap(paquet_de_carte, i, random.nextInt(paquet_de_carte.size()));
         }
+        paquetMelange.ajouterPaquet(this);
+        return paquetMelange;
     }
 
     /**

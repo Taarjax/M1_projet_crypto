@@ -10,9 +10,7 @@ public class Main {
         Solitaire solitaire = new Solitaire(paquet);
         paquet.remplir_paquet_de_carte();
 
-        System.out.println(paquet.getPaquet_de_carte().get(0).getValeur() + "_" + paquet.getPaquet_de_carte().get(0).getCouleur());
-
-        mainView mainView = new mainView(paquet);
+        mainView mainView = new mainView(paquet, solitaire);
         mainView.pack();
         mainView.setVisible(true);
     }
