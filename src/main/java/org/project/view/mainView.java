@@ -8,8 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 
 public class mainView extends JFrame {
     private JPanel mainPanel;
@@ -19,10 +18,13 @@ public class mainView extends JFrame {
     private JButton decrypterButton;
     private JTextField inputMessage;
     private JButton paquet_btn;
-    private JPanel contentPanel;
-    private JPanel cardPanel;
+    private ArrayList paquet_apres_melange_clone;
+    private Paquet_de_cartes clef_de_base = new Paquet_de_cartes();
+
 
     public mainView(Paquet_de_cartes paquet, Solitaire solitaire) {
+        clef_de_base.remplir_paquet_de_carte();
+        paquet_apres_melange_clone = (ArrayList) paquet.getPaquet_de_carte().clone();
         this.setContentPane(mainPanel);
         this.setTitle("Solitaire");
         this.setSize(1200, 600);
@@ -41,6 +43,19 @@ public class mainView extends JFrame {
 
                 JPanel panel = new JPanel();
                 panel.setLayout(new GridLayout(4, 13));
+
+                JButton validateKeyButton = new JButton("Valider");
+                validateKeyButton.addActionListener(new ActionListener() {
+
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        clef_de_base.setPaquet_de_carte(paquet_apres_melange_clone);
+                        solitaire.setClefDeBase(clef_de_base);
+                        solitaire.setPaquet_de_depart(clef_de_base);
+
+                    }
+                });
+
                 for (Carte carte : paquet.getPaquet_de_carte()) {
                     JLabel label = new JLabel();
                     ImageIcon imgIcon_carte;
@@ -57,6 +72,7 @@ public class mainView extends JFrame {
                     panel.add(label);
                 }
                 frame.add(panel);
+                panel.add(validateKeyButton);
                 frame.setVisible(true);
             }
         });
@@ -65,8 +81,9 @@ public class mainView extends JFrame {
         melange_btn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Melange");
                 paquet.melanger();
+                paquet_apres_melange_clone = (ArrayList<Carte>) paquet.getPaquet_de_carte().clone();
+                System.out.println("Melange");
                 System.out.println(paquet);
             }
         });
@@ -77,7 +94,7 @@ public class mainView extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 String message = inputMessage.getText();
                 try {
-                    String reponse = solitaire.crypter(message);
+                    String reponse = solitaire.crypter(message, solitaire.getPaquet_de_depart());
                     inputReponse.setText(reponse);
                 } catch (Exception ex) {
                     throw new RuntimeException(ex);
@@ -88,10 +105,10 @@ public class mainView extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String message = inputReponse.getText();
-                try{
-                    String reponse = solitaire.decrypter(message);
+                try {
+                    String reponse = solitaire.decrypter(message, solitaire.getClefDeBase());
                     inputMessage.setText(reponse);
-                }catch (Exception ex) {
+                } catch (Exception ex) {
                     throw new RuntimeException(ex);
                 }
             }

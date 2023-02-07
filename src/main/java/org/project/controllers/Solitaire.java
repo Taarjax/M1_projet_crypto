@@ -12,9 +12,24 @@ import java.util.Collections;
 public class Solitaire {
     private Paquet_de_cartes paquet;
     private String clef_de_cryptage = "";
+    private Paquet_de_cartes clef_de_base;
+
+    private ArrayList paquet_de_depart;
+
+
 
     public Solitaire(Paquet_de_cartes _paquet) {
         this.paquet = _paquet;
+        this.paquet_de_depart = (ArrayList) _paquet.getPaquet_de_carte().clone();
+    }
+
+    //Méthode qui convertie un arrayList en Paquet_de_cate
+    public Paquet_de_cartes convertirArrayListEnPaquet(ArrayList<Carte> _paquet){
+        Paquet_de_cartes paquet = new Paquet_de_cartes();
+        for(Carte carte: _paquet){
+            paquet.ajouter_carte(carte);
+        }
+        return paquet;
     }
 
     /**
@@ -163,7 +178,7 @@ public class Solitaire {
     /**
      * Méthode pour crypter un message
      */
-    public String crypter(String message) throws Exception {
+    public String crypter(String message, Paquet_de_cartes clef_de_base) throws Exception {
         System.out.println("Message à crypter: " + message);
 
         message = message.toLowerCase();
@@ -173,29 +188,47 @@ public class Solitaire {
         String messageCrypte = "";
 
         for (int i = 0; i < message.length(); i++) {
-            int valeurLettreMessage = this.paquet.convertLetterToBridge(message.charAt(i));
-            int valeurLettreClef = this.paquet.convertLetterToBridge(clef.charAt(i));
+            int valeurLettreMessage = clef_de_base.convertLetterToBridge(message.charAt(i));
+            int valeurLettreClef = clef_de_base.convertLetterToBridge(clef.charAt(i));
             int valeurLettreCrypte = (valeurLettreMessage + valeurLettreClef) > 26 ? (valeurLettreMessage + valeurLettreClef) - 26 : (valeurLettreMessage + valeurLettreClef);
-            messageCrypte += this.paquet.convertBridgeToLetter(valeurLettreCrypte);
+            messageCrypte += clef_de_base.convertBridgeToLetter(valeurLettreCrypte);
         }
+        this.paquet.setPaquet_de_carte(clef_de_base.getPaquet_de_carte());
         return messageCrypte;
     }
 
     /**
      * Méthode pour décrypter un message
      */
-    public String decrypter(String message) throws Exception {
+    public String decrypter(String message, Paquet_de_cartes clef_de_base) throws Exception {
         String clef = this.clef_de_cryptage;
         String messageDecrypte = "";
 
         for (int i = 0; i < message.length(); i++) {
-            int valeurLettreMessage = this.paquet.convertLetterToBridge(message.charAt(i));
-            int valeurLettreClef = this.paquet.convertLetterToBridge(clef.charAt(i));
+            int valeurLettreMessage = clef_de_base.convertLetterToBridge(message.charAt(i));
+            int valeurLettreClef = clef_de_base.convertLetterToBridge(clef.charAt(i));
             int valeurLettreDecrypte = (valeurLettreMessage - valeurLettreClef) < 1 ? (valeurLettreMessage - valeurLettreClef) + 26 : (valeurLettreMessage - valeurLettreClef);
-            messageDecrypte += this.paquet.convertBridgeToLetter(valeurLettreDecrypte);
+            messageDecrypte += clef_de_base.convertBridgeToLetter(valeurLettreDecrypte);
         }
         return messageDecrypte;
     }
+
+    public Paquet_de_cartes getClefDeBase() {
+        return this.clef_de_base;
+    }
+    public void setClefDeBase(Paquet_de_cartes clef_de_base) {
+        this.clef_de_base = clef_de_base;
+    }
+
+    public Paquet_de_cartes getPaquet_de_depart() {
+        return this.convertirArrayListEnPaquet(this.paquet_de_depart);
+    }
+
+    public void setPaquet_de_depart(Paquet_de_cartes paquet_de_depart) {
+        this.paquet_de_depart = paquet_de_depart.getPaquet_de_carte();
+    }
+
+
 
 }
 

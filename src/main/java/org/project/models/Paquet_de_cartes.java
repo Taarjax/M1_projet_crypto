@@ -17,6 +17,10 @@ public class Paquet_de_cartes {
         this.paquet_de_carte = new ArrayList<>();
     }
 
+    public Paquet_de_cartes(ArrayList paquet){
+        this.paquet_de_carte = paquet;
+    }
+
     /**
      * Méthode qui rempli le paquet de carte a partir de la classe Carte
      */
@@ -92,6 +96,8 @@ public class Paquet_de_cartes {
     public ArrayList<Carte> getPaquet_de_carte(){
         return this.paquet_de_carte;
     }
+
+
 
     /**
      * Méthode retournant la taille du paquet de carte
@@ -245,6 +251,10 @@ public class Paquet_de_cartes {
             return false;
         Paquet_de_cartes paquet = (Paquet_de_cartes) o;
         return paquet_de_carte.equals(paquet.paquet_de_carte);
+    }
+
+    public void setPaquet_de_carte(ArrayList<Carte> paquet_de_carte) {
+        this.paquet_de_carte = paquet_de_carte;
     }
 
 
