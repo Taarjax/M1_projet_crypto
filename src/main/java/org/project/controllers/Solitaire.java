@@ -213,6 +213,7 @@ public class Solitaire {
         return messageDecrypte;
     }
 
+
     public Paquet_de_cartes getClefDeBase() {
         return this.clef_de_base;
     }

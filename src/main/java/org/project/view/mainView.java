@@ -18,6 +18,8 @@ public class mainView extends JFrame {
     private JButton decrypterButton;
     private JTextField inputMessage;
     private JButton paquet_btn;
+    private JPanel contentPanel;
+    private JPanel cardPanel;
     private ArrayList paquet_apres_melange_clone;
     private Paquet_de_cartes clef_de_base = new Paquet_de_cartes();
 
