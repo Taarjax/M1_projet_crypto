@@ -96,10 +96,18 @@ public class Carte {
         return this.joker == Jokers.JOKER_ROUGE;
     }
 
+    /**
+     * Retourne la valeur de la carte
+     * @return la valeur de la carte
+     */
     public Valeurs getValeur() {
         return valeur;
     }
 
+    /**
+     * Retourne la couleur de la carte
+     * @return la couleur de la carte
+     */
     public Couleurs getCouleur() {
         return couleur;
     }

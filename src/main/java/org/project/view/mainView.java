@@ -20,10 +20,8 @@ public class mainView extends JFrame {
     private JButton decrypterButton;
     private JTextField inputMessage;
     private JButton paquet_btn;
-    private JPanel contentPanel;
     private JButton exporterButton;
     private JButton importerButton;
-    private JPanel cardPanel;
     private ArrayList paquet_apres_melange_clone;
     private Paquet_de_cartes clef_de_base = new Paquet_de_cartes();
 
@@ -52,7 +50,6 @@ public class mainView extends JFrame {
 
                 JButton validateKeyButton = new JButton("Valider");
                 validateKeyButton.addActionListener(new ActionListener() {
-
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         clef_de_base.setPaquet_de_carte(paquet_apres_melange_clone);
@@ -71,7 +68,6 @@ public class mainView extends JFrame {
                     } else {
                         imgIcon_carte = new ImageIcon("src\\main\\resources\\assets\\" + carte.getValeur() + "_" + carte.getCouleur() + ".png");
                     }
-
                     Image img_carte = imgIcon_carte.getImage();
                     Image img_resize_carte = img_carte.getScaledInstance(76, 100, java.awt.Image.SCALE_SMOOTH);
                     label.setIcon(new ImageIcon(img_resize_carte));
@@ -132,7 +128,7 @@ public class mainView extends JFrame {
                     File selectedFile = fileChooser.getSelectedFile();
                     paquet.importPaquet(selectedFile);
                 }
-                }
+            }
         });
         exporterButton.addActionListener(new ActionListener() {
             @Override
@@ -140,5 +136,6 @@ public class mainView extends JFrame {
                 paquet.exportPaquet();
             }
         });
+        //Check conv button
     }
 }

@@ -3,8 +3,6 @@ package org.project.controllers;
 import org.project.models.Carte;
 import org.project.models.Paquet_de_cartes;
 
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -15,20 +13,27 @@ public class Solitaire {
     private Paquet_de_cartes paquet;
     private String clef_de_cryptage = "";
     private Paquet_de_cartes clef_de_base;
-
     private ArrayList paquet_de_depart;
 
-
-
+    /**
+     * Constructeur de la classe Solitaire
+     *
+     * @param _paquet Paquet de carte qui sera utilisé pour le chiffrement
+     */
     public Solitaire(Paquet_de_cartes _paquet) {
         this.paquet = _paquet;
         this.paquet_de_depart = (ArrayList) _paquet.getPaquet_de_carte().clone();
     }
 
-    //Méthode qui convertie un arrayList en Paquet_de_cate
-    public Paquet_de_cartes convertirArrayListEnPaquet(ArrayList<Carte> _paquet){
+    /**
+     * Méthode qui permet de convertir un arraylist en paquet de carte
+     *
+     * @param _paquet Arraylist de carte
+     * @return Paquet de carte
+     */
+    public Paquet_de_cartes convertirArrayListEnPaquet(ArrayList<Carte> _paquet) {
         Paquet_de_cartes paquet = new Paquet_de_cartes();
-        for(Carte carte: _paquet){
+        for (Carte carte : _paquet) {
             paquet.ajouter_carte(carte);
         }
         return paquet;
@@ -120,7 +125,7 @@ public class Solitaire {
 
         //On récupère le reste du paquet
         // -1 pour ne pas prendre la derniere carte
-        for (int i = valeurBridgeDerniereCarte ; i < this.paquet.getSize() - 1; i++) {
+        for (int i = valeurBridgeDerniereCarte; i < this.paquet.getSize() - 1; i++) {
             paquetRestant.ajouter_carte(this.paquet.getPaquet_de_carte().get(i));
         }
 
@@ -149,7 +154,7 @@ public class Solitaire {
             this.double_coupe();
             this.coupe_simple();
             return this.lecture_lettre();
-        }else{
+        } else {
             if (valeurBridgeCarteM > 26) {
                 valeurBridgeCarteM = valeurBridgeCarteM - 26;
             }
@@ -161,7 +166,8 @@ public class Solitaire {
     /**
      * Méthode pour génerer la clef de cryptage
      */
-    public String generer_clef(int tailleMessage) throws Exception {;
+    public String generer_clef(int tailleMessage) throws Exception {
+        ;
         String clef = "";
 
         //Pour chaque lettre du message, on fait le mélange pseudo aléatoire et on récupère la lettre correspondante
@@ -216,17 +222,34 @@ public class Solitaire {
     }
 
 
+    /**
+     * Méthode pour avoir la clef de base
+     * @return Paquet_de_cartes la clef de base
+     */
     public Paquet_de_cartes getClefDeBase() {
         return this.clef_de_base;
     }
+
+    /**
+     * Méthode pour modifier la clef de base
+     * @param clef_de_base la nouvelle clef de base
+     */
     public void setClefDeBase(Paquet_de_cartes clef_de_base) {
         this.clef_de_base = clef_de_base;
     }
 
+    /**
+     * Méthode pour avoir le paquet de départ
+     * @return Paquet_de_cartes le paquet de départ
+     */
     public Paquet_de_cartes getPaquet_de_depart() {
         return this.convertirArrayListEnPaquet(this.paquet_de_depart);
     }
 
+    /**
+     * Méthode pour modifier le paquet de départ
+     * @param paquet_de_depart le nouveau paquet de départ
+     */
     public void setPaquet_de_depart(Paquet_de_cartes paquet_de_depart) {
         this.paquet_de_depart = paquet_de_depart.getPaquet_de_carte();
     }

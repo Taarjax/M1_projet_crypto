@@ -1,9 +1,7 @@
 package org.project.models;
-
 import org.project.enumeration.Couleurs;
 import org.project.enumeration.Jokers;
 import org.project.enumeration.Valeurs;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -277,6 +275,10 @@ public class Paquet_de_cartes {
         return paquet_de_carte.equals(paquet.paquet_de_carte);
     }
 
+    /**
+     * Méthode pour modifier le paquet de carte à partir d'un paquet de carte passé en paramètre
+     * @param paquet_de_carte le nouveau paquet de carte
+     */
     public void setPaquet_de_carte(ArrayList<Carte> paquet_de_carte) {
         this.paquet_de_carte = paquet_de_carte;
     }
@@ -330,6 +332,5 @@ public class Paquet_de_cartes {
             System.out.println("Le fichier paquet.txt n'a pas été trouvé !");
             e.printStackTrace();
         }
-
     }
 }
