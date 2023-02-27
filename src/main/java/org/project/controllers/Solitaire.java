@@ -3,6 +3,8 @@ package org.project.controllers;
 import org.project.models.Carte;
 import org.project.models.Paquet_de_cartes;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -228,7 +230,6 @@ public class Solitaire {
     public void setPaquet_de_depart(Paquet_de_cartes paquet_de_depart) {
         this.paquet_de_depart = paquet_de_depart.getPaquet_de_carte();
     }
-
 
 
 }

@@ -5,9 +5,11 @@ import org.project.models.Carte;
 import org.project.models.Paquet_de_cartes;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.ArrayList;
 
 public class mainView extends JFrame {
@@ -19,6 +21,8 @@ public class mainView extends JFrame {
     private JTextField inputMessage;
     private JButton paquet_btn;
     private JPanel contentPanel;
+    private JButton exporterButton;
+    private JButton importerButton;
     private JPanel cardPanel;
     private ArrayList paquet_apres_melange_clone;
     private Paquet_de_cartes clef_de_base = new Paquet_de_cartes();
@@ -115,7 +119,26 @@ public class mainView extends JFrame {
                 }
             }
         });
+        importerButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser fileChooser = new JFileChooser();
+                FileNameExtensionFilter filter = new FileNameExtensionFilter("Fichiers texte (.txt)", "txt");
+                fileChooser.setFileFilter(filter);
+
+                int result = fileChooser.showOpenDialog(mainPanel);
+
+                if (result == JFileChooser.APPROVE_OPTION) {
+                    File selectedFile = fileChooser.getSelectedFile();
+                    paquet.importPaquet(selectedFile);
+                }
+                }
+        });
+        exporterButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                paquet.exportPaquet();
+            }
+        });
     }
-
-
 }

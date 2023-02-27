@@ -4,6 +4,8 @@ import org.project.models.Paquet_de_cartes;
 import org.project.controllers.Solitaire;
 import org.project.view.mainView;
 
+import java.io.File;
+
 public class Main {
     public static void main(String[] args) throws Exception {
         Paquet_de_cartes paquet = new Paquet_de_cartes();
@@ -30,7 +32,7 @@ public class Main {
 
 
 
-
+//
         mainView mainView = new mainView(paquet, solitaire);
         mainView.pack();
         mainView.setVisible(true);
