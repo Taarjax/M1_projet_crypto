@@ -185,7 +185,7 @@ public class Solitaire {
      * Méthode pour décrypter un message
      */
     public String decrypter(String message) throws Exception {
-        String clef = this.clef_de_cryptage;
+        String clef = generer_clef(message.length());
         String messageDecrypte = "";
 
         for (int i = 0; i < message.length(); i++) {

@@ -3,9 +3,14 @@ import org.project.enumeration.Couleurs;
 import org.project.enumeration.Jokers;
 import org.project.enumeration.Valeurs;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
+import java.util.Scanner;
 
 /**
  * Classe qui représente un paquet de carte
@@ -245,6 +250,57 @@ public class Paquet_de_cartes {
             return false;
         Paquet_de_cartes paquet = (Paquet_de_cartes) o;
         return paquet_de_carte.equals(paquet.paquet_de_carte);
+    }
+
+    /**
+     * Méthode pour exporter un paquet de carte dans un fichier
+     */
+    public void exportPaquet() {
+        try {
+            FileWriter fw = new FileWriter("paquetExport.txt");
+            for (Carte carte : this.paquet_de_carte) {
+                Carte derniereCarte = this.getDerniereCarte();
+                if (this.paquet_de_carte.indexOf(carte) == this.paquet_de_carte.indexOf(derniereCarte))
+                    fw.write(carte.toString());
+                else
+                    fw.write(carte + "\n");
+            }
+            fw.close();
+            System.out.println("Les éléments ont été stockés dans le fichier !");
+        } catch (IOException e) {
+            System.out.println("Erreur lors de l'écriture dans le fichier !");
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Méthode pour importer un paquet de carte depuis un fichier
+     */
+    public void importPaquet(File file) {
+        try {
+            Scanner sc = new Scanner(file);
+            this.paquet_de_carte.clear();
+            while (sc.hasNextLine()) {
+                String data = sc.nextLine();
+                String[] dataSplit = data.split(" ");
+                String valeur;
+                String couleur;
+
+                if (dataSplit[0].equals("JOKER_NOIR") || dataSplit[0].equals("JOKER_ROUGE")) {
+                    valeur = dataSplit[0];
+                    this.paquet_de_carte.add(new Carte(null, null, Jokers.valueOf(valeur)));
+                } else {
+                    valeur = dataSplit[0];
+                    couleur = dataSplit[2];
+                    this.paquet_de_carte.add(new Carte(Couleurs.valueOf(couleur), Valeurs.valueOf(valeur), null));
+                }
+            }
+            sc.close();
+            System.out.println("Le paquet a été importé avec succès !");
+        } catch (FileNotFoundException e) {
+            System.out.println("Le fichier paquet.txt n'a pas été trouvé !");
+            e.printStackTrace();
+        }
     }
 
 
