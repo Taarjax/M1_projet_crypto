@@ -19,6 +19,7 @@ public class mainView extends JFrame {
     private JButton crypterButton;
     private JButton decrypterButton;
     private JTextField inputMessage;
+    private JPanel contentPanel;
     private JButton paquet_btn;
     private JButton exporterButton;
     private JButton importerButton;
