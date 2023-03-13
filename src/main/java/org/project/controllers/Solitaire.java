@@ -137,7 +137,6 @@ public class Solitaire {
                 valeurBridgeCarteM = valeurBridgeCarteM - 26;
             }
         }
-
         return paquet.convertBridgeToLetter(valeurBridgeCarteM);
     }
 
@@ -155,6 +154,7 @@ public class Solitaire {
             this.coupe_simple(); // good
             clef += this.lecture_lettre();
         }
+
         this.clef_de_cryptage = clef;
         System.out.println("Clef de cryptage: " + this.clef_de_cryptage);
         return this.clef_de_cryptage;
@@ -175,7 +175,8 @@ public class Solitaire {
         for (int i = 0; i < message.length(); i++) {
             int valeurLettreMessage = this.paquet.convertLetterToBridge(message.charAt(i));
             int valeurLettreClef = this.paquet.convertLetterToBridge(clef.charAt(i));
-            int valeurLettreCrypte = (valeurLettreMessage + valeurLettreClef) > 26 ? (valeurLettreMessage + valeurLettreClef) - 26 : (valeurLettreMessage + valeurLettreClef);
+            int valeurLettreCrypte = (valeurLettreMessage + valeurLettreClef) > 26
+                    ? (valeurLettreMessage + valeurLettreClef) - 26 : (valeurLettreMessage + valeurLettreClef);
             messageCrypte += this.paquet.convertBridgeToLetter(valeurLettreCrypte);
         }
         return messageCrypte;
